@@ -1,0 +1,64 @@
+:root {
+    --primary: #A6E22E;
+    --text: #333333;
+    --muted: #999999;
+  }
+  
+  .hero-banner {
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.5), 
+        rgba(0, 0, 0, 0.5)
+      ),
+      url('https://media.istockphoto.com/id/2175973016/photo/modern-luxury-home-exterior-at-sunset.webp?a=1&b=1&s=612x612&w=0&k=20&c=B2e-gEujpM7UNHX3uMHqvyh_bHC5sHFYfxf0ldEc6R0=') no-repeat center center;
+    background-size: cover;
+    padding: 100px 5vw;
+    color: #fff;
+    text-align: center;
+    position: relative;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .hero-banner h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  
+  .hero-banner p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    margin-bottom: 30px;
+    color: #f0f0f0;
+  }
+  
+  .cta-btn {
+    background-color: var(--primary);
+    color: #000;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-btn:hover {
+    background-color: #95d028;
+  }
+  
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .hero-banner {
+      padding: 70px 4vw;
+    }
+  
+    .cta-btn {
+      width: 100%;
+      padding: 12px;
+    }
+  }
+  
