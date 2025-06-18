@@ -10,6 +10,7 @@ import './App.css';
 import TopProperties from './Pages/TopProperties';
 import AboutUs from './Pages/AboutUs';
 import ContactUs from './Pages/ContactUS';
+import BookingPage from './Pages/BookingPage';
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
         <Route path="/about" element={<AboutUs/>}  />
         <Route path="/contact" element={<ContactUs/>}  />
         <Route path="/property/:id" element={<PropertyDetails />} />
+        <Route path="/booking" element={<BookingPage/>}  />
+
 
       </Routes>
       <Footer />

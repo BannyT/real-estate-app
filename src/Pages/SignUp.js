@@ -1,31 +1,40 @@
 import React, { useState } from 'react';
 import './SignUp.css';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase'; 
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate()
 
-  const handleSignUp = (e) => {
+  
+  // signup functions
+  
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    // TODO: Add Firebase signup logic here
-    console.log('Signing up with:', name, email, password);
+    setLoading(true);
+    setError('');
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigate('/'); 
+    } catch (err) {
+      setError(err.message || 'Something went wrong!');
+    }
+    setLoading(false);
   };
 
   return (
     <section className="signup-section">
       <div className="signup-card">
-        <h2>Create Account 🏡</h2>
-        <p>Join to explore exclusive property listings</p>
+        <h2>Create Account 📝</h2>
+        <p>Join us and explore amazing properties</p>
 
         <form onSubmit={handleSignUp} className="signup-form">
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+          {error && <p className="error">{error}</p>}
 
           <input
             type="email"
@@ -43,11 +52,13 @@ const SignUp = () => {
             required
           />
 
-          <button type="submit">Sign Up</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Creating account...' : 'Sign Up'}
+          </button>
         </form>
 
         <p className="signup-footer">
-          Already have an account? <a href="/login">Login</a>
+          Already have an account? <a href="/login">Log in</a>
         </p>
       </div>
     </section>

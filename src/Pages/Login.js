@@ -1,14 +1,33 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase.js'; // Adjust the path
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+
+
+  // method to login
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // TODO: Add Firebase authentication logic here
-    console.log('Logging in with:', email, password);
+    setLoading(true);
+    setError('');
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/'); // Redirect to homepage
+    } catch (err) {
+      setError('Invalid email or password');
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -18,6 +37,8 @@ const Login = () => {
         <p>Log in to continue your property journey</p>
 
         <form onSubmit={handleLogin} className="login-form">
+          {error && <p className="error">{error}</p>}
+
           <input
             type="email"
             placeholder="Email address"
@@ -34,7 +55,9 @@ const Login = () => {
             required
           />
 
-          <button type="submit">Login</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+          </button>
         </form>
 
         <p className="login-footer">

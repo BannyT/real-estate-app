@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import properties from './PropertyData';
 import './TopProperties.css';
-
+import { useNavigate } from "react-router";
 const TopProperties = () => {
   const [query, setQuery] = useState('');
+  const navigaton =useNavigate()
 
   const filteredProperties = properties.filter((prop) =>
     prop.title.toLowerCase().includes(query.toLowerCase()) ||
     prop.location.toLowerCase().includes(query.toLowerCase())
   );
+    
 
+     const moveToBooking =()=>{
+         navigaton('booking')
+     }
+ 
   return (
     <section className="top-properties">
       <h2>Top Properties</h2>
@@ -30,7 +36,7 @@ const TopProperties = () => {
               <h3>{prop.title}</h3>
               <p>{prop.location}</p>
               <span>{prop.price}</span>
-              <button className="book-now">Book Now</button>
+              <button onClick={moveToBooking} className="book-now">Book Now</button>
             </div>
           </div>
         ))}
